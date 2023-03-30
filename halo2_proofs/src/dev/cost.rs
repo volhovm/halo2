@@ -1,3 +1,5 @@
+#![allow(missing_docs)]
+
 //! Developer tools for investigating the cost of a circuit.
 
 use std::{
@@ -25,39 +27,39 @@ use crate::{
 #[derive(Debug)]
 pub struct CircuitCost<G: PrimeGroup, ConcreteCircuit: Circuit<G::Scalar>> {
     /// Power-of-2 bound on the number of rows in the circuit.
-    k: u32,
+    pub k: u32,
     /// Maximum degree of the circuit.
-    max_deg: usize,
+    pub max_deg: usize,
     /// Minimum degree of the circuit.
-    min_deg: Option<usize>,
+    pub min_deg: Option<usize>,
     /// Number of advice columns.
-    advice_columns: usize,
+    pub advice_columns: usize,
     /// Number of direct queries for each column type.
-    instance_queries: usize,
-    advice_queries: usize,
-    fixed_queries: usize,
+    pub instance_queries: usize,
+    pub advice_queries: usize,
+    pub fixed_queries: usize,
     /// Number of lookup arguments.
-    lookups: usize,
+    pub lookups: usize,
     /// Number of columns in the global permutation.
-    permutation_cols: usize,
+    pub permutation_cols: usize,
     /// Number of distinct sets of points in the multiopening argument.
-    point_sets: usize,
+    pub point_sets: usize,
     /// Maximum rows used over all columns
-    max_rows: usize,
+    pub max_rows: usize,
     /// Maximum rows used over all advice columns
-    max_advice_rows: usize,
+    pub max_advice_rows: usize,
     /// Maximum rows used over all fixed columns
-    max_fixed_rows: usize,
-    num_fixed_columns: usize,
-    num_advice_columns: usize,
-    num_instance_columns: usize,
-    num_total_columns: usize,
-    regions: Vec<(String, usize)>,
+    pub max_fixed_rows: usize,
+    pub num_fixed_columns: usize,
+    pub num_advice_columns: usize,
+    pub num_instance_columns: usize,
+    pub num_total_columns: usize,
+    pub regions: Vec<(String, usize)>,
 
-    constants: usize,
-    gates: usize,
+    pub constants: usize,
+    pub gates: usize,
 
-    _marker: PhantomData<(G, ConcreteCircuit)>,
+    pub _marker: PhantomData<(G, ConcreteCircuit)>,
 }
 
 /// Region implementation used by Layout
