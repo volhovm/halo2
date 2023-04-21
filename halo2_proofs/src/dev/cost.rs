@@ -42,6 +42,8 @@ pub struct CircuitCost<G: PrimeGroup, ConcreteCircuit: Circuit<G::Scalar>> {
     pub lookups: usize,
     /// Number of columns in the global permutation.
     pub permutation_cols: usize,
+    /// bla
+    pub column_queries_num: usize,
     /// Number of distinct sets of points in the multiopening argument.
     pub point_sets: usize,
     /// Maximum rows used over all columns
@@ -315,10 +317,12 @@ impl<G: PrimeGroup, ConcreteCircuit: Circuit<G::Scalar>> CircuitCost<G, Concrete
             column_queries.entry(c).or_default().insert(r.0);
         }
         let mut point_sets: HashSet<Vec<i32>> = HashSet::new();
+        let mut column_queries_num = 0;
         for (_, r) in column_queries {
             // Sort the query sets so we merge duplicates.
             let mut query_set: Vec<_> = r.into_iter().collect();
             query_set.sort_unstable();
+            column_queries_num += query_set.len();
             point_sets.insert(query_set);
         }
 
@@ -346,6 +350,7 @@ impl<G: PrimeGroup, ConcreteCircuit: Circuit<G::Scalar>> CircuitCost<G, Concrete
             fixed_queries: cs.fixed_queries.len(),
             lookups: cs.lookups.len(),
             permutation_cols,
+            column_queries_num: column_queries_num,
             point_sets: point_sets.len(),
             _marker: PhantomData::default(),
             max_rows: layout.total_rows,
